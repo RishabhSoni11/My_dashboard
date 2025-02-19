@@ -60,7 +60,7 @@ This project is licensed under the **MIT License**.
 ✨ **Happy Coding!** ✨
 📬 Connect with Me
 
-Dashboard: [https://rishabhsoni11.github.io/My_Portfolio.github.io/]
+Dashboard: [https://rishabhsoni11.github.io/My_dashboard/]
 
 LinkedIn:  [https://www.linkedin.com/in/rishabh-soni-11dec2004/]
 
