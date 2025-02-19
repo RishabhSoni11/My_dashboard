@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for hover effects */
+        .hover-effect:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        /* Dark theme styles */
+        .dark {
+            background-color: #1a202c; /* Dark background */
+            color: #cbd5e0; /* Light text */
+        }
+        .dark .bg-white {
+            background-color: #2d3748; /* Dark card background */
+            color: #cbd5e0; /* Light text */
+        }
+        .dark .bg-gray-800 {
+            background-color: #2d3748; /* Dark sidebar */
+        }
+        .dark .bg-blue-500 {
+            background-color: #3b82f6; /* Adjust blue for dark theme */
+        }
+        .dark .bg-green-500 {
+            background-color: #10b981; /* Adjust green for dark theme */
+        }
+        .dark .bg-red-500 {
+            background-color: #ef4444; /* Adjust red for dark theme */
+        }
+        .dark .bg-yellow-500 {
+            background-color: #fbbf24; /* Adjust yellow for dark theme */
+        }
+        .dark .bg-purple-500 {
+            background-color: #a855f7; /* Adjust purple for dark theme */
+        }
+        .dark .bg-indigo-500 {
+            background-color: #6366f1; /* Adjust indigo for dark theme */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-gray-800 text-white w-64 p-5">
+            <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+            <ul>
+                <li class="mb-4 hover-effect p-2 rounded" onclick="loadContent('home')"><a href="#">Home</a></li>
+                <li class="mb-4 hover-effect p-2 rounded" onclick="loadContent('profile')"><a href="#">Profile</a></li>
+                <li class="mb-4 hover-effect p-2 rounded" onclick="loadContent('settings')"><a href="#">Settings</a></li>
+                <li class="mb-4 hover-effect p-2 rounded" onclick="loadContent('messages')"><a href="#">Messages</a></li>
+                <li class="mb-4 hover-effect p-2 rounded" onclick="loadContent('logout')"><a href="#">Logout</a></li>
+            </ul>
+            <button id="theme-toggle" class="mt-6 bg-gray-700 text-white rounded px-4 py-2">Toggle Theme</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-10" id="main-content">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">Welcome to Rishabh's Dashboard</h2>
+                <p class="text-gray-600">Here you can manage your settings, view messages, and more.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cards-container">
+                <div class="bg-blue-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold">Total Users</h3>
+                    <p class="text-sm">Current registered users in the system.</p>
+                    <div class="text-2xl font-bold mt-2">1,250</div>
+                    <button class="mt-4 bg-white text-blue-500 rounded px-4 py-2">View Details</button>
+                </div>
+                <div class="bg-green-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                        <h3 class="text-lg font-semibold">Active Sessions</h3>
+                    <p class="text-sm">Number of active sessions currently.</p>
+                    <div class="text-2xl font-bold mt-2">320</div>
+                    <button class="mt-4 bg-white text-green-500 rounded px-4 py-2">View Details</button>
+                </div>
+                <div class="bg-red-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold">Pending Messages</h3>
+                    <p class="text-sm">Messages waiting for your response.</p>
+                    <div class="text-2xl font-bold mt-2">15</div>
+                    <button class="mt-4 bg-white text-red-500 rounded px-4 py-2">View Messages</button>
+                </div>
+                <div class="bg-yellow-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold">New Signups</h3>
+                    <p class="text-sm">Users who signed up in the last week.</p>
+                    <div class="text-2xl font-bold mt-2">50</div>
+                    <button class="mt-4 bg-white text-yellow-500 rounded px-4 py-2">View Signups</button>
+                </div>
+                <div class="bg-purple-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold">System Health</h3>
+                    <p class="text-sm">Current status of the system's health.</p>
+                    <div class="text-2xl font-bold mt-2">All Systems Operational</div>
+                    <button class="mt-4 bg-white text-purple-500 rounded px-4 py-2">Check Status</button>
+                </div>
+                <div class="bg-indigo-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold">Feedback Received</h3>
+                    <p class="text-sm">User  feedback collected in the last month.</p>
+                    <div class="text-2xl font-bold mt-2">120</div>
+                    <button class="mt-4 bg-white text-indigo-500 rounded px-4 py-2">View Feedback</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggleButton = document.getElementById('theme-toggle');
+        themeToggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            if (document.body.classList.contains('dark')) {
+                themeToggleButton.textContent = 'Switch to Light Theme';
+            } else {
+                themeToggleButton.textContent = 'Switch to Dark Theme';
+            }
+        });
+
+        function loadContent(page) {
+            const mainContent = document.getElementById('main-content');
+
+            switch (page) {
+                case 'home':
+                    mainContent.innerHTML = `
+                        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <h2 class="text-xl font-semibold mb-4">Welcome to Rishabh's Dashboard</h2>
+                            <p class="text-gray-600">Here you can manage your settings, view messages, and more.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cards-container">
+                            <div class="bg-blue-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                <h3 class="text-lg font-semibold">Total Users</h3>
+                                <p class="text-sm">Current registered users in the system.</p>
+                                <div class="text-2xl font-bold mt-2">1,250</div>
+                                <button class="mt-4 bg-white text-blue-500 rounded px-4 py-2">View Details</button>
+                            </div>
+                            <div class="bg-green-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                <h3 class="text-lg font-semibold">Active Sessions</h3>
+                                <p class="text-sm">Number of active sessions currently.</p>
+                                <div class="text-2xl font-bold mt-2">320</div>
+                                                                <button class="mt-4 bg-white text-green-500 rounded px-4 py-2">View Details</button>
+                            </div>
+                            <div class="bg-red-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                <h3 class="text-lg font-semibold">Pending Messages</h3>
+                                <p class="text-sm">Messages waiting for your response.</p>
+                                <div class="text-2xl font-bold mt-2">15</div>
+                                <button class="mt-4 bg-white text-red-500 rounded px-4 py-2">View Messages</button>
+                            </div>
+                            <div class="bg-yellow-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                <h3 class="text-lg font-semibold">New Signups</h3>
+                                <p class="text-sm">Users who signed up in the last week.</p>
+                                <div class="text-2xl font-bold mt-2">50</div>
+                                <button class="mt-4 bg-white text-yellow-500 rounded px-4 py-2">View Signups</button>
+                            </div>
+                            <div class="bg-purple-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                <h3 class="text-lg font-semibold">System Health</h3>
+                                <p class="text-sm">Current status of the system's health.</p>
+                                <div class="text-2xl font-bold mt-2">All Systems Operational</div>
+                                <button class="mt-4 bg-white text-purple-500 rounded px-4 py-2">Check Status</button>
+                            </div>
+                            <div class="bg-indigo-500 text-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                                <h3 class="text-lg font-semibold">Feedback Received</h3>
+                                <p class="text-sm">User  feedback collected in the last month.</p>
+                                <div class="text-2xl font-bold mt-2">120</div>
+                                <button class="mt-4 bg-white text-indigo-500 rounded px-4 py-2">View Feedback</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'profile':
+                    mainContent.innerHTML = `
+                        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <h2 class="text-xl font-semibold mb-4">Profile</h2>
+                            <p class="text-gray-600">Manage your profile settings here.</p>
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Your Name" value="Rishabh Soni">
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" class="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Your Email" value="rahulsoninke786@gmail.com">
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">Phone</label>
+                                <input type="tel" class="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Your Phone" value="6204639488">
+                            </div>
+                            <button class="mt-4 bg-blue-500 text-white rounded px-4 py-2">Save Changes</button>
+                        </div>
+                    `;
+                    break;
+
+                case 'settings':
+                    mainContent.innerHTML = `
+                        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <h2 class="text-xl font-semibold mb-4">Settings</h2>
+                            <p class="text-gray-600">Adjust your application settings here.</p>
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">Notification Preferences</label>
+                                <select class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                                    <option>Email Notifications</option>
+                                    <option>SMS Notifications</option>
+                                    <option>No Notifications</option>
+                                </select>
+                            </div>
+                            <div class="mt-4">
+                                                                <label class="block text-sm font-medium text-gray-700">Privacy Settings</label>
+                                <div class="flex items-center mt-2">
+                                    <input type="checkbox" id="privacy" class="mr-2">
+                                    <label for="privacy" class="text-sm">Make my profile private</label>
+                                </div>
+                            </div>
+                            <button class="mt-4 bg-blue-500 text-white rounded px-4 py-2">Save Settings</button>
+                        </div>
+                    `;
+                    break;
+
+                case 'messages':
+                    mainContent.innerHTML = `
+                        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <h2 class="text-xl font-semibold mb-4">Messages</h2>
+                            <p class="text-gray-600">View your messages here.</p>
+                            <div class="mt-4">
+                                <div class="border-b pb-2 mb-2">
+                                    <h3 class="font-semibold">Message from Alice</h3>
+                                    <p class="text-sm text-gray-600">Hey! Are we still on for the meeting tomorrow?</p>
+                                </div>
+                                <div class="border-b pb-2 mb-2">
+                                    <h3 class="font-semibold">Message from Bob</h3>
+                                    <p class="text-sm text-gray-600">Don't forget to submit your report!</p>
+                                </div>
+                                <div class="border-b pb-2 mb-2">
+                                    <h3 class="font-semibold">Message from Charlie</h3>
+                                    <p class="text-sm text-gray-600">Can you send me the files we discussed?</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'logout':
+                    mainContent.innerHTML = `
+                        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <h2 class="text-xl font-semibold mb-4">Logout</h2>
+                            <p class="text-gray-600">You have been logged out successfully. Thank you for using our application!</p>
+                            <button class="mt-4 bg-blue-500 text-white rounded px-4 py-2">Login Again</button>
+                        </div>
+                    `;
+                    break;
+
+                default:
+                    mainContent.innerHTML = `
+                        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <h2 class="text-xl font-semibold mb-4">Page Not Found</h2>
+                            <p class="text-gray-600">The page you are looking for does not exist.</p>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
