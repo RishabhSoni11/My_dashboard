@@ -59,8 +59,13 @@ This project is licensed under the **MIT License**.
 ---
 ✨ **Happy Coding!** ✨
 📬 Connect with Me
+
 Dashboard: [https://rishabhsoni11.github.io/My_Portfolio.github.io/]
+
 LinkedIn:  [https://www.linkedin.com/in/rishabh-soni-11dec2004/]
+
 GitHub:    [https://github.com/RishabhSoni11]
+
 Email:     [rahulsoninke786@gmail.com]
+
 ⭐ Feel free to fork, star, and contribute to this project! ⭐
